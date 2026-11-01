@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+coverage/
+
+# Environment and local data
+.env
+*.sqlite
+*.sqlite3
+*.db
+backend/uploads/
+
+# Playwright
+test-results/
+playwright-report/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
