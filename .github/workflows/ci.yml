@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# The steps after checkout run only when the folder exists, so CI stays green
+# while the backend (TRI-17) and frontend (TRI-16) skeletons are being added.
+jobs:
+  backend:
+    name: Backend (Jest + Supertest)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    env:
+      NODE_ENV: test
+      JWT_SECRET: ci-test-secret
+      AI_MODE: mock
+    steps:
+      - uses: actions/checkout@v4
+      - name: Skip notice
+        if: ${{ hashFiles('backend/package.json') == '' }}
+        working-directory: .
+        run: echo "backend/ does not exist yet – skipping."
+      - uses: actions/setup-node@v4
+        if: ${{ hashFiles('backend/package.json') != '' }}
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+          cache-dependency-path: backend/package-lock.json
+      - if: ${{ hashFiles('backend/package.json') != '' }}
+        run: npm ci
+      - if: ${{ hashFiles('backend/package.json') != '' }}
+        run: npm test
+
+  frontend:
+    name: Frontend (Vitest + build)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - name: Skip notice
+        if: ${{ hashFiles('frontend/package.json') == '' }}
+        working-directory: .
+        run: echo "frontend/ does not exist yet – skipping."
+      - uses: actions/setup-node@v4
+        if: ${{ hashFiles('frontend/package.json') != '' }}
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - if: ${{ hashFiles('frontend/package.json') != '' }}
+        run: npm ci
+      - if: ${{ hashFiles('frontend/package.json') != '' }}
+        run: npm test
+      - if: ${{ hashFiles('frontend/package.json') != '' }}
+        run: npm run build
