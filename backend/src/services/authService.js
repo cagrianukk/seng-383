@@ -2,8 +2,11 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const db = require('../db');
 
+// Varsayılan secret yok: tanımlı değilse token üretmek/doğrulamak yerine hata ver.
 function getSecret() {
-  return process.env.JWT_SECRET || 'change-me';
+  const secret = process.env.JWT_SECRET;
+  if (!secret) throw new Error('JWT_SECRET tanımlı değil');
+  return secret;
 }
 
 // password_hash asla dışarı verilmez (NFR-01)
