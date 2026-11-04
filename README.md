@@ -24,6 +24,13 @@ seng-383/
 - Node.js 22 (see `.nvmrc`)
 - npm 10
 
+**Windows:** the backend uses `better-sqlite3`, a native module. `npm install` downloads a prebuilt binary for Node 22; if none matches your Node version or CPU, it compiles from source and fails unless these are installed:
+
+- Python 3 (https://www.python.org/downloads/, tick "Add python.exe to PATH")
+- Visual Studio Build Tools with the **Desktop development with C++** workload (https://visualstudio.microsoft.com/visual-cpp-build-tools/)
+
+Check `node -v` first: on Node 22 the prebuilt binary is normally used and the build tools are not needed.
+
 ## Running Locally
 
 **1. Backend**
