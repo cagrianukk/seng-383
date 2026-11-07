@@ -15,6 +15,7 @@ A web-based decision support platform where parents, specialists and children sh
 seng-383/
 ├── backend/            Node.js + Express REST API, SQLite, JWT   (port 3001)
 ├── frontend/           React + Vite single-page app               (port 5173)
+├── e2e/                Playwright end-to-end tests (start backend + frontend themselves)
 ├── docs/               SRS, SDD, PMP, screenshots (docs/img/)
 └── .github/workflows/  CI (GitHub Actions)
 ```
@@ -62,6 +63,11 @@ Open http://localhost:5173. Requests to `/api` are proxied to the backend.
 | Parent | parent@example.com | Parent123! |
 | Specialist | specialist@example.com | Specialist123! |
 | Child | child@example.com | Child123! |
+| Specialist (not linked) | teacher@example.com | Teacher123! |
+
+The seed creates one child ("Demo Çocuk") whose parent is the demo parent. The demo specialist is linked to the child as a psychologist; the teacher account is not linked, so you can try linking and unlinking a specialist from the parent's **Uzmanlar** page.
+
+If you seeded the database before this change, delete `backend/data.sqlite` and run `npm run seed` again.
 
 ## Tests
 
@@ -69,6 +75,9 @@ Open http://localhost:5173. Requests to `/api` are proxied to the backend.
 |---|---|---|
 | `backend/` | `npm test` | Jest + Supertest |
 | `frontend/` | `npm test` | Vitest |
+| `e2e/` | `npm test` | Playwright (first time: `npx playwright install chromium`) |
+
+The end-to-end tests start the backend and frontend themselves with a separate test database, so stop any dev servers on ports 3001 and 5173 before running them.
 
 CI runs these on every pull request and on every push to `main`. The AI module always runs in mock mode in tests and CI (`AI_MODE=mock`).
 
