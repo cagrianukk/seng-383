@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import LoginPage from './pages/LoginPage'
 import WelcomePage from './pages/WelcomePage'
+import LinkedSpecialistsPage from './pages/LinkedSpecialistsPage'
+import ChildListPage from './pages/ChildListPage'
 import Layout from './components/Layout'
-import { login, getMe } from './api'
-
-const TOKEN_KEY = 'token'
+import ProtectedRoute from './components/ProtectedRoute'
+import { login, getMe, TOKEN_KEY } from './api'
 
 export default function App() {
   const [user, setUser] = useState(null)
@@ -45,6 +46,22 @@ export default function App() {
       <Routes>
         <Route element={<Layout user={user} onLogout={handleLogout} />}>
           <Route index element={<WelcomePage user={user} />} />
+          <Route
+            path="specialists"
+            element={
+              <ProtectedRoute user={user} roles={['parent']}>
+                <LinkedSpecialistsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="children"
+            element={
+              <ProtectedRoute user={user} roles={['specialist']}>
+                <ChildListPage />
+              </ProtectedRoute>
+            }
+          />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
