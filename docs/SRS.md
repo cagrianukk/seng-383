@@ -2,7 +2,7 @@
 
 **Team name:** TriCore  
 **Version:** ☒ First version (Week 6) ☐ Final (Week 10)  
-**Last updated:** 2026-10-18
+**Last updated:** 2026-11-07
 
 ---
 
@@ -33,17 +33,20 @@ The system is a web-based decision support platform that brings parents, special
 | FR-M1-03 | The system shall show each role only its own screens and hide navigation to other roles' screens. | Must |
 | FR-M1-04 | The system shall show an error message and not log in the user when the email or password is wrong. | Must |
 | FR-M1-05 | The API shall reject every protected request without a valid token with status 401. | Must |
+| FR-M1-06 | The API shall reject a request from a logged-in user whose role is not allowed for that endpoint with status 403. | Must |
+| FR-M1-07 | The system shall let a logged-in user log out, which removes the token from the browser. | Should |
 
 ### M2 – Linking specialists
 
 | ID | Requirement | Priority |
 |---|---|---|
-| FR-M2-01 | The system shall let a parent link a registered specialist to the child by email and specialist type. | Must |
-| FR-M2-02 | The system shall show an error when the entered email does not belong to a registered specialist. | Must |
+| FR-M2-01 | The system shall let a parent link a registered specialist to one of their children by email and specialist type (teacher, psychologist, doctor, special education teacher, coach). | Must |
+| FR-M2-02 | The system shall show an error when the entered email does not belong to a registered specialist (API status 404). | Must |
 | FR-M2-03 | The system shall list the specialists linked to the child. | Must |
 | FR-M2-04 | The system shall let a parent unlink a specialist after a confirmation step. | Must |
-| FR-M2-05 | The API shall answer every request about a child from an unlinked specialist with status 403. | Must |
+| FR-M2-05 | The API shall answer every request about a child with status 403 when it comes from an unlinked specialist, from a parent who is not the child's parent, or from a child account other than that child. | Must |
 | FR-M2-06 | The system shall show a specialist the list of children they are linked to. | Must |
+| FR-M2-07 | The system shall reject linking a specialist who is already linked to the same child with an error message (API status 409). | Should |
 
 ### M3 – Weekly schedule
 
@@ -88,7 +91,7 @@ The system is a web-based decision support platform that brings parents, special
 
 | ID | Requirement | Priority |
 |---|---|---|
-| FR-M7-01 | The system shall show the task completion rate (done / assigned) for a selected week in total. | Must |
+| FR-M7-01 | The system shall show the task completion rate (done / assigned) for a selected week in total. A week runs from Monday to Sunday and a task belongs to the week of its due date. | Must |
 | FR-M7-02 | The system shall show the completion rate for the selected week by development area. | Must |
 | FR-M7-03 | The system shall show 0 tasks and a "no tasks" message, not an error, for a week without tasks. | Should |
 
@@ -161,3 +164,4 @@ flowchart LR
 | Date | Change | By |
 |---|---|---|
 | 2026-10-18 | First version | TriCore |
+| 2026-11-07 | Review of M1, M2 and M7 (TRI-19): added FR-M1-06, FR-M1-07 and FR-M2-07; clarified FR-M2-01, FR-M2-02, FR-M2-05 and the week definition in FR-M7-01 | Çağrı Anuk |
