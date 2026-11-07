@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import LoginPage from './pages/LoginPage'
 import WelcomePage from './pages/WelcomePage'
+import Layout from './components/Layout'
 import { login, getMe } from './api'
 
 const TOKEN_KEY = 'token'
@@ -34,9 +36,18 @@ export default function App() {
     return <p className="loading">Yükleniyor…</p>
   }
 
-  if (user) {
-    return <WelcomePage user={user} onLogout={handleLogout} />
+  if (!user) {
+    return <LoginPage onLogin={handleLogin} />
   }
 
-  return <LoginPage onLogin={handleLogin} />
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route element={<Layout user={user} onLogout={handleLogout} />}>
+          <Route index element={<WelcomePage user={user} />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  )
 }
