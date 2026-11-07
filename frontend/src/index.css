@@ -61,3 +61,14 @@ body {
   margin: 0 0 8px;
   color: #dc2626;
 }
+
+.muted {
+  margin: 0 0 16px;
+  color: #6b7280;
+}
+
+.loading {
+  margin-top: 40vh;
+  text-align: center;
+  color: #6b7280;
+}
