@@ -67,6 +67,8 @@ Open http://localhost:5173. Requests to `/api` are proxied to the backend.
 
 The seed creates one child ("Demo Çocuk") whose parent is the demo parent. The demo specialist is linked to the child as a psychologist; the teacher account is not linked, so you can try linking and unlinking a specialist from the parent's **Uzmanlar** page.
 
+The child also gets three events and three tasks in the week the seed runs (Monday to Sunday): one task is done and two are open, in the development areas `language`, `social` and `motor`. Events and tasks are only added if the child has none yet, so running the seed again does not duplicate them. To get demo data for a new week, delete `backend/data.sqlite` and run `npm run seed` again.
+
 If you seeded the database before this change, delete `backend/data.sqlite` and run `npm run seed` again.
 
 ## Tests
