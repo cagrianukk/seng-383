@@ -1,6 +1,7 @@
 import { describe, test, expect, vi, beforeEach, afterEach } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
 import App from './App'
+import { getChildren } from './api'
 
 function mockFetch(status, body) {
   const fetchMock = vi.fn().mockResolvedValue({
@@ -70,5 +71,35 @@ describe('App', () => {
     expect(fetchMock).toHaveBeenCalledWith('/api/auth/me', {
       headers: { Authorization: 'Bearer saved-token' },
     })
+  })
+
+  test('korumalı istek 401 dönünce token silinir ve oturum süresi doldu mesajıyla login sayfasına döner (TRI-35)', async () => {
+    localStorage.setItem('token', 'expired-token')
+    mockFetch(200, { user: demoUser })
+    render(<App />)
+    await screen.findByText('Hoş geldin, Demo Veli (Veli)')
+
+    mockFetch(401, { error: 'Invalid or expired token' })
+    await expect(getChildren()).rejects.toThrow()
+
+    expect(await screen.findByRole('status')).toHaveTextContent('Oturumunuzun süresi doldu')
+    expect(screen.getByRole('button', { name: 'Giriş yap' })).toBeInTheDocument()
+    expect(localStorage.getItem('token')).toBeNull()
+  })
+
+  test('tekrar giriş yapınca oturum süresi doldu mesajı kaybolur', async () => {
+    localStorage.setItem('token', 'expired-token')
+    mockFetch(200, { user: demoUser })
+    render(<App />)
+    await screen.findByText('Hoş geldin, Demo Veli (Veli)')
+    mockFetch(401, {})
+    await expect(getChildren()).rejects.toThrow()
+    await screen.findByRole('status')
+
+    mockFetch(200, { token: 'new-token', user: demoUser })
+    fillAndSubmit('parent@example.com', 'Parent123!')
+
+    expect(await screen.findByText('Hoş geldin, Demo Veli (Veli)')).toBeInTheDocument()
+    expect(localStorage.getItem('token')).toBe('new-token')
   })
 })
