@@ -4,6 +4,7 @@ import LoginPage from './pages/LoginPage'
 import WelcomePage from './pages/WelcomePage'
 import LinkedSpecialistsPage from './pages/LinkedSpecialistsPage'
 import ChildListPage from './pages/ChildListPage'
+import ChildTasksPage from './pages/ChildTasksPage'
 import Layout from './components/Layout'
 import ProtectedRoute from './components/ProtectedRoute'
 import { login, getMe, TOKEN_KEY } from './api'
@@ -59,6 +60,14 @@ export default function App() {
             element={
               <ProtectedRoute user={user} roles={['specialist']}>
                 <ChildListPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="tasks"
+            element={
+              <ProtectedRoute user={user} roles={['child']}>
+                <ChildTasksPage />
               </ProtectedRoute>
             }
           />

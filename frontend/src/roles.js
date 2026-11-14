@@ -22,5 +22,16 @@ export const NAV_ITEMS = {
     { to: '/', label: 'Ana sayfa' },
     { to: '/children', label: 'Çocuklarım' },
   ],
-  child: [{ to: '/', label: 'Ana sayfa' }],
+  child: [
+    { to: '/', label: 'Ana sayfa' },
+    { to: '/tasks', label: 'Görevlerim' },
+  ],
+}
+
+// Görevlerin gelişim alanları (FR-M4-01, FR-M7-02). Seed verisi de bu anahtarları kullanır.
+export const AREA_LABELS = {
+  language: 'Dil',
+  social: 'Sosyal',
+  motor: 'Motor',
+  cognitive: 'Bilişsel',
 }
