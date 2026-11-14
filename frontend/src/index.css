@@ -72,3 +72,112 @@ body {
   text-align: center;
   color: #6b7280;
 }
+.app-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 24px;
+  background: #ffffff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.app-header nav {
+  display: flex;
+  gap: 16px;
+}
+
+.app-header nav a {
+  color: #374151;
+  text-decoration: none;
+}
+
+.app-header nav a.active {
+  color: #2563eb;
+  font-weight: 600;
+}
+
+.app-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.app-content {
+  max-width: 720px;
+  margin: 24px auto;
+  padding: 0 16px;
+}
+
+.card {
+  padding: 24px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.card h1 {
+  margin: 0 0 16px;
+  font-size: 1.5rem;
+}
+
+.card h2 {
+  margin: 24px 0 8px;
+  font-size: 1.125rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form input,
+.form select,
+.card select {
+  padding: 10px 12px;
+  font-size: 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+button {
+  padding: 8px 12px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+button.secondary {
+  background: #e5e7eb;
+  color: #111827;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.small {
+  font-size: 0.875rem;
+}

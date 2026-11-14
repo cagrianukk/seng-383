@@ -2,6 +2,7 @@ require('dotenv').config({ quiet: true });
 const express = require('express');
 const cors = require('cors');
 const authRoutes = require('./routes/authRoutes');
+const childRoutes = require('./routes/childRoutes');
 
 const app = express();
 
@@ -10,6 +11,7 @@ app.use(express.json());
 
 app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
 app.use('/api/auth', authRoutes);
+app.use('/api/children', childRoutes);
 
 app.use((req, res) => res.status(404).json({ error: 'Bulunamadı' }));
 
