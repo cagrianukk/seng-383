@@ -6,11 +6,12 @@ import LinkedSpecialistsPage from './pages/LinkedSpecialistsPage'
 import ChildListPage from './pages/ChildListPage'
 import Layout from './components/Layout'
 import ProtectedRoute from './components/ProtectedRoute'
-import { login, getMe, TOKEN_KEY } from './api'
+import { login, getMe, TOKEN_KEY, SESSION_EXPIRED_EVENT } from './api'
 
 export default function App() {
   const [user, setUser] = useState(null)
   const [checking, setChecking] = useState(() => Boolean(localStorage.getItem(TOKEN_KEY)))
+  const [notice, setNotice] = useState('')
 
   useEffect(() => {
     const token = localStorage.getItem(TOKEN_KEY)
@@ -22,8 +23,18 @@ export default function App() {
       .finally(() => setChecking(false))
   }, [])
 
+  useEffect(() => {
+    function handleExpired() {
+      setUser(null)
+      setNotice('Oturumunuzun süresi doldu, lütfen tekrar giriş yapın.')
+    }
+    window.addEventListener(SESSION_EXPIRED_EVENT, handleExpired)
+    return () => window.removeEventListener(SESSION_EXPIRED_EVENT, handleExpired)
+  }, [])
+
   async function handleLogin(email, password) {
     const data = await login(email, password)
+    setNotice('')
     localStorage.setItem(TOKEN_KEY, data.token)
     setUser(data.user)
   }
@@ -38,7 +49,7 @@ export default function App() {
   }
 
   if (!user) {
-    return <LoginPage onLogin={handleLogin} />
+    return <LoginPage onLogin={handleLogin} notice={notice} />
   }
 
   return (
