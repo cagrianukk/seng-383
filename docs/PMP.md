@@ -71,14 +71,22 @@ The epic owner is responsible for the epic and reviews its pull requests; indivi
 
 ## PMP-3. Progress Review: Mid-term (v0.1)
 
-**Jira board screenshot:**  
+> Draft as of 2026-11-14 (end of Week 7). The table is updated, and the board screenshot added, right before the mid-term evaluation in Week 8 when `v0.1` is tagged.
+
+**Jira board screenshot:** *(to be added before the mid-term: `docs/img/pmp3-board.png`)*  
 
 | Epic | Planned for this point | Status (Done / In progress / Not started) |
 |---|---|---|
-| | | |
-| | | |
+| PMP-1 – Project and team | Jira project, team and roles | Done |
+| PMP-2 – Plan | Epics and sprint plan | Done |
+| M1 – Login and roles | Login, JWT, role-based navigation, `requireRole` (403), log out on expired token (TRI-35) | In progress (TRI-35 in review) |
+| M2 – Linking specialists | Link and unlink specialists, `requireChildAccess`, Flow 1 end-to-end test in CI | Done |
+| M3 – Weekly schedule | Events API and weekly view (TRI-28, TRI-29) | Not started |
+| M4 – Tasks | Tasks API, task form, child's tasks page, Flow 2 end-to-end test (TRI-30, TRI-31, TRI-33, TRI-36); demo events and tasks (TRI-34) | In progress (TRI-34 in review) |
 
 **Changes to the plan (if any):**
+- The `EVENT` and `TASK` tables and the demo data were moved forward into TRI-34 so that M3 and M4 can be built in parallel on the same schema.
+- The Flow 2 end-to-end test (TRI-36) was pulled into Sprint 2; the course requires only one end-to-end test for v0.1, which Flow 1 already covers.
 
 ---
 
