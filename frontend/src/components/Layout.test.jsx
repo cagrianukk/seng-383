@@ -55,9 +55,11 @@ describe('Layout – rol bazlı menü (FR-M1-03)', () => {
     expect(screen.queryByRole('link', { name: 'Görevler' })).not.toBeInTheDocument()
   })
 
-  test('çocuk sadece ana sayfa menüsünü görür', () => {
+  test('çocuk "Görevlerim" menüsünü görür, veli/uzman menülerini görmez', () => {
     renderAt('/', child)
-    expect(screen.getAllByRole('link')).toHaveLength(1)
+    expect(screen.getAllByRole('link')).toHaveLength(2)
+    expect(screen.getByRole('link', { name: 'Görevlerim' })).toBeInTheDocument()
+    expect(screen.queryByRole('link', { name: 'Uzmanlar' })).not.toBeInTheDocument()
     expect(screen.getByText('Demo Çocuk (Çocuk)')).toBeInTheDocument()
   })
 

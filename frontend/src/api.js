@@ -90,3 +90,9 @@ export async function createTask(childId, task) {
   })
   return data.task
 }
+
+// Çocuk: kendi görevini tamamlandı olarak işaretler (FR-M4-03)
+export async function markTaskDone(childId, taskId) {
+  const data = await authFetch(`/api/children/${childId}/tasks/${taskId}/done`, { method: 'PATCH' })
+  return data.task
+}

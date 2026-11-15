@@ -36,5 +36,8 @@ export const NAV_ITEMS = {
     { to: '/children', label: 'Çocuklarım' },
     { to: '/tasks', label: 'Görevler' },
   ],
-  child: [{ to: '/', label: 'Ana sayfa' }],
+  child: [
+    { to: '/', label: 'Ana sayfa' },
+    { to: '/my-tasks', label: 'Görevlerim' },
+  ],
 }
