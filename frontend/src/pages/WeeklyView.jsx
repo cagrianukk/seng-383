@@ -24,7 +24,6 @@ export default function WeeklyView({ user }) {
   useEffect(() => {
     if (childId === null) return
     let ignore = false
-    setEvents(null)
     getEvents(childId, week)
       .then((list) => {
         if (!ignore) setEvents(list)
@@ -37,13 +36,16 @@ export default function WeeklyView({ user }) {
     }
   }, [childId, week])
 
+  // Yeni hafta/çocuk yüklenirken eski listeyi gösterme (effect içinde setState yerine burada).
   function handleChildChange(event) {
     setChildId(Number(event.target.value))
+    setEvents(null)
     setError('')
   }
 
   function changeWeek(days) {
     setWeek((current) => addDays(current, days))
+    setEvents(null)
     setError('')
   }
 
@@ -53,6 +55,7 @@ export default function WeeklyView({ user }) {
     if (eventWeek === week) {
       setEvents(await getEvents(childId, week))
     } else {
+      setEvents(null)
       setWeek(eventWeek)
     }
   }
