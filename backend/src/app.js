@@ -4,6 +4,7 @@ const cors = require('cors');
 const authRoutes = require('./routes/authRoutes');
 const childRoutes = require('./routes/childRoutes');
 const taskRoutes = require('./routes/taskRoutes');
+const eventRoutes = require('./routes/eventRoutes');
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
 app.use('/api/auth', authRoutes);
 app.use('/api/children', childRoutes);
 app.use('/api/children', taskRoutes);
+app.use('/api/children', eventRoutes);
 
 app.use((req, res) => res.status(404).json({ error: 'Bulunamadı' }));
 
