@@ -219,3 +219,21 @@ button.secondary {
   color: #6b7280;
   text-decoration: line-through;
 }
+
+.week-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 8px 0 16px;
+}
+
+.day h3 {
+  margin: 16px 0 4px;
+  font-size: 1rem;
+}
+
+.day p {
+  margin: 0;
+}

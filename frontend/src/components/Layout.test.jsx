@@ -57,10 +57,18 @@ describe('Layout – rol bazlı menü (FR-M1-03)', () => {
 
   test('çocuk "Görevlerim" menüsünü görür, veli/uzman menülerini görmez', () => {
     renderAt('/', child)
-    expect(screen.getAllByRole('link')).toHaveLength(2)
+    expect(screen.getAllByRole('link')).toHaveLength(3)
     expect(screen.getByRole('link', { name: 'Görevlerim' })).toBeInTheDocument()
     expect(screen.queryByRole('link', { name: 'Uzmanlar' })).not.toBeInTheDocument()
     expect(screen.getByText('Demo Çocuk (Çocuk)')).toBeInTheDocument()
+  })
+
+  test('üç rol de "Takvim" menüsünü görür', () => {
+    for (const user of [parent, specialist, child]) {
+      const { unmount } = renderAt('/', user)
+      expect(screen.getByRole('link', { name: 'Takvim' })).toHaveAttribute('href', '/schedule')
+      unmount()
+    }
   })
 
   test('Çıkış butonu onLogout çağırır', () => {
