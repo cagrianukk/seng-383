@@ -73,7 +73,8 @@ The epic owner is responsible for the epic and reviews its pull requests; indivi
 
 Status on 2026-11-15, the day before the mid-term evaluation (Monday 16 November, Week 8). Release `v0.1` is tagged on `main`.
 
-**Jira board screenshot:** *(to be added: `docs/img/pmp3-board.png`)*  
+**Jira board screenshot:** Sprint 2 on 2026-11-15 (Sprint 1 completed, Sprint 2 started)  
+![Jira board, Sprint 2](img/pmp3-board.png)
 
 | Epic | Planned for this point | Status (Done / In progress / Not started) |
 |---|---|---|
