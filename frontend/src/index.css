@@ -62,6 +62,14 @@ body {
   color: #dc2626;
 }
 
+.notice {
+  margin: 0 0 12px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  background: #fef3c7;
+  color: #92400e;
+}
+
 .muted {
   margin: 0 0 16px;
   color: #6b7280;

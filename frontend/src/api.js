@@ -1,5 +1,9 @@
 export const TOKEN_KEY = 'token'
 
+// Korumalı bir istek 401 dönerse (token süresi dolmuş/geçersiz) bu olay yayınlanır;
+// App dinleyip kullanıcıyı login sayfasına döndürür (FR-M1-05, FR-M1-07).
+export const SESSION_EXPIRED_EVENT = 'session-expired'
+
 export async function login(email, password) {
   const res = await fetch('/api/auth/login', {
     method: 'POST',
@@ -43,6 +47,11 @@ async function authFetch(path, { method = 'GET', body } = {}) {
     headers,
     body: body === undefined ? undefined : JSON.stringify(body),
   })
+
+  if (res.status === 401) {
+    localStorage.removeItem(TOKEN_KEY)
+    window.dispatchEvent(new Event(SESSION_EXPIRED_EVENT))
+  }
 
   if (res.status === 204) return null
   const data = await res.json().catch(() => ({}))

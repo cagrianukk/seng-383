@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export default function LoginPage({ onLogin }) {
+export default function LoginPage({ onLogin, notice }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -23,6 +23,12 @@ export default function LoginPage({ onLogin }) {
     <main className="login-page">
       <form className="login-card" onSubmit={handleSubmit}>
         <h1>Giriş</h1>
+
+        {notice && !error && (
+          <p className="notice" role="status">
+            {notice}
+          </p>
+        )}
 
         <label htmlFor="email">E-posta</label>
         <input
