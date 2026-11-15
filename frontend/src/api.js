@@ -76,3 +76,17 @@ export async function linkSpecialist(childId, email, specialistType) {
 export async function unlinkSpecialist(childId, specialistId) {
   await authFetch(`/api/children/${childId}/specialists/${specialistId}`, { method: 'DELETE' })
 }
+
+export async function getTasks(childId) {
+  const data = await authFetch(`/api/children/${childId}/tasks`)
+  return data.tasks
+}
+
+// task: { title, description, area, dueDate } (dueDate 'YYYY-MM-DD')
+export async function createTask(childId, task) {
+  const data = await authFetch(`/api/children/${childId}/tasks`, {
+    method: 'POST',
+    body: task,
+  })
+  return data.task
+}
