@@ -12,15 +12,29 @@ export const SPECIALIST_TYPE_LABELS = {
   coach: 'Antrenör',
 }
 
+// Gelişim alanları: backend'deki AREAS ile aynı değerler (FR-M4-01).
+export const AREA_LABELS = {
+  language: 'Dil',
+  social: 'Sosyal',
+  motor: 'Motor',
+}
+
+export const TASK_STATUS_LABELS = {
+  open: 'Açık',
+  done: 'Tamamlandı',
+}
+
 // Her rol sadece kendi menüsünü görür (FR-M1-03). Yeni sayfalar (M3, M4…) buraya eklenir.
 export const NAV_ITEMS = {
   parent: [
     { to: '/', label: 'Ana sayfa' },
     { to: '/specialists', label: 'Uzmanlar' },
+    { to: '/tasks', label: 'Görevler' },
   ],
   specialist: [
     { to: '/', label: 'Ana sayfa' },
     { to: '/children', label: 'Çocuklarım' },
+    { to: '/tasks', label: 'Görevler' },
   ],
   child: [{ to: '/', label: 'Ana sayfa' }],
 }
