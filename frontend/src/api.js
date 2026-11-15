@@ -105,3 +105,16 @@ export async function markTaskDone(childId, taskId) {
   const data = await authFetch(`/api/children/${childId}/tasks/${taskId}/done`, { method: 'PATCH' })
   return data.task
 }
+
+export async function getEvents(childId, week) {
+  const data = await authFetch(`/api/children/${childId}/events?week=${week}`)
+  return data.events
+}
+
+export async function createEvent(childId, event) {
+  const data = await authFetch(`/api/children/${childId}/events`, {
+    method: 'POST',
+    body: event,
+  })
+  return data.event
+}
