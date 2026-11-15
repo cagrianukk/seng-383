@@ -2,7 +2,7 @@
 
 **Team name:** TriCore  
 **Version:** ☒ First version (Week 6) ☐ Final (Week 10)  
-**Last updated:** 2026-11-07
+**Last updated:** 2026-11-15
 
 ---
 
@@ -52,20 +52,25 @@ The system is a web-based decision support platform that brings parents, special
 
 | ID | Requirement | Priority |
 |---|---|---|
-| FR-M3-01 | The system shall let a parent and linked specialists add an event with title, date and time. | Must |
-| FR-M3-02 | The system shall list a child's events in a weekly view for a selected week. | Must |
-| FR-M3-03 | The system shall show the child their own upcoming events as read-only. | Must |
+| FR-M3-01 | The system shall let a parent and linked specialists add an event for the child with a title and a start date and time. | Must |
+| FR-M3-02 | The system shall list a child's events for a selected week, grouped by day and sorted by start time. A week runs from Monday to Sunday (as in FR-M7-01); the current week is shown by default and the user can move to the previous or next week. | Must |
+| FR-M3-03 | The system shall show the child their own events in the weekly view as read-only, without the form for adding events. | Must |
 | FR-M3-04 | The system shall add a monthly view of events. | Could |
+| FR-M3-05 | The API shall reject event creation by the child with status 403. | Must |
+| FR-M3-06 | The API shall reject an event without a title or with an invalid date or time with status 400. | Should |
+| FR-M3-07 | The system shall show a "no events this week" message, not an error, for a week without events. | Should |
 
 ### M4 – Tasks
 
 | ID | Requirement | Priority |
 |---|---|---|
-| FR-M4-01 | The system shall let a parent and linked specialists assign a task with title, description, development area and due date. | Must |
+| FR-M4-01 | The system shall let a parent and linked specialists assign a task with title, description, development area (language, social, motor) and due date. A new task starts with the status "open". | Must |
 | FR-M4-02 | The system shall show the child their own tasks only. | Must |
-| FR-M4-03 | The system shall let the child mark one of their tasks as done. | Must |
+| FR-M4-03 | The system shall let the child mark one of their tasks as done, which changes its status from "open" to "done". | Must |
 | FR-M4-04 | The system shall show the assigner the current status (open / done) of the tasks they assigned. | Must |
 | FR-M4-05 | The API shall reject task creation by the child with status 403. | Must |
+| FR-M4-06 | The API shall reject marking a task as done by any role other than the child with status 403. | Must |
+| FR-M4-07 | The API shall reject a task without a title, with an unknown development area or with an invalid due date with status 400. | Should |
 
 ### M5 – Specialist entries
 
@@ -81,11 +86,12 @@ The system is a web-based decision support platform that brings parents, special
 
 | ID | Requirement | Priority |
 |---|---|---|
-| FR-M6-01 | The system shall let a parent and linked specialists upload a PDF or image file for the child. | Must |
-| FR-M6-02 | The system shall reject files that are not PDF or image files with an error message. | Must |
-| FR-M6-03 | The system shall list documents with name, type, uploader and date. | Must |
+| FR-M6-01 | The system shall let a parent and linked specialists upload a PDF, PNG or JPEG file of at most 5 MB for the child. | Must |
+| FR-M6-02 | The system shall reject files that are not PDF, PNG or JPEG files with an error message (API status 400). | Must |
+| FR-M6-03 | The system shall list documents with name, type, uploader and upload date, newest first. | Must |
 | FR-M6-04 | The system shall let the parent and linked specialists view or download a document. | Must |
 | FR-M6-05 | The API shall deny the child access to all documents with status 403. | Must |
+| FR-M6-06 | The system shall reject files larger than 5 MB with an error message (API status 413). | Should |
 
 ### M7 – Weekly statistics
 
@@ -150,11 +156,12 @@ flowchart LR
         UC7(Upload / download documents)
         UC8(View weekly statistics)
         UC9(View AI summary)
+        UC10(View own schedule and tasks)
     end
 
     Parent --> UC1 & UC2 & UC3 & UC4 & UC7 & UC8 & UC9
     Specialist --> UC1 & UC3 & UC4 & UC6 & UC7 & UC9
-    Child --> UC1 & UC5
+    Child --> UC1 & UC5 & UC10
 ```
 
 ---
@@ -165,3 +172,4 @@ flowchart LR
 |---|---|---|
 | 2026-10-18 | First version | TriCore |
 | 2026-11-07 | Review of M1, M2 and M7 (TRI-19): added FR-M1-06, FR-M1-07 and FR-M2-07; clarified FR-M2-01, FR-M2-02, FR-M2-05 and the week definition in FR-M7-01 | Çağrı Anuk |
+| 2026-11-15 | Review of M3, M4 and M6 (TRI-20): added FR-M3-05, FR-M3-06, FR-M3-07, FR-M4-06, FR-M4-07 and FR-M6-06; clarified FR-M3-01, FR-M3-02, FR-M3-03, FR-M4-01, FR-M4-03, FR-M6-01, FR-M6-02 and FR-M6-03; added UC10 for the child | Cem Çiftçi |
