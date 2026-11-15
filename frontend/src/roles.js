@@ -30,14 +30,17 @@ export const NAV_ITEMS = {
     { to: '/', label: 'Ana sayfa' },
     { to: '/specialists', label: 'Uzmanlar' },
     { to: '/tasks', label: 'Görevler' },
+    { to: '/schedule', label: 'Takvim' },
   ],
   specialist: [
     { to: '/', label: 'Ana sayfa' },
     { to: '/children', label: 'Çocuklarım' },
     { to: '/tasks', label: 'Görevler' },
+    { to: '/schedule', label: 'Takvim' },
   ],
   child: [
     { to: '/', label: 'Ana sayfa' },
     { to: '/my-tasks', label: 'Görevlerim' },
+    { to: '/schedule', label: 'Takvim' },
   ],
 }
