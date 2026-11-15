@@ -29,6 +29,27 @@ db.exec(`
     specialist_type TEXT NOT NULL,
     UNIQUE (child_id, specialist_id)
   );
+
+  -- M3: starts_at yerel saat, 'YYYY-MM-DDTHH:MM' biçiminde
+  CREATE TABLE IF NOT EXISTS EVENT (
+    id         INTEGER PRIMARY KEY AUTOINCREMENT,
+    child_id   INTEGER NOT NULL REFERENCES CHILD(id) ON DELETE CASCADE,
+    title      TEXT NOT NULL,
+    starts_at  TEXT NOT NULL,
+    created_by INTEGER NOT NULL REFERENCES USER(id)
+  );
+
+  -- M4: due_date 'YYYY-MM-DD'; görev due_date'in düştüğü haftaya sayılır (FR-M7-01)
+  CREATE TABLE IF NOT EXISTS TASK (
+    id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    child_id    INTEGER NOT NULL REFERENCES CHILD(id) ON DELETE CASCADE,
+    title       TEXT NOT NULL,
+    description TEXT NOT NULL DEFAULT '',
+    area        TEXT NOT NULL,
+    due_date    TEXT NOT NULL,
+    status      TEXT NOT NULL DEFAULT 'open' CHECK (status IN ('open', 'done')),
+    assigned_by INTEGER NOT NULL REFERENCES USER(id)
+  );
 `);
 
 module.exports = db;

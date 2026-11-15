@@ -70,7 +70,7 @@ export default function ChildTasksPage() {
                 </div>
               </div>
               {t.status === 'done' ? (
-                <span className="badge">Tamamlandı</span>
+                <span className="badge done">Tamamlandı</span>
               ) : (
                 <button type="button" onClick={() => handleDone(t)} disabled={savingId === t.id}>
                   {savingId === t.id ? 'Kaydediliyor…' : 'Tamamladım'}

@@ -77,13 +77,21 @@ export async function unlinkSpecialist(childId, specialistId) {
   await authFetch(`/api/children/${childId}/specialists/${specialistId}`, { method: 'DELETE' })
 }
 
-// M4 – Görevler. Response şekli Tasks API (TRI-30) ile kararlaştırıldı:
-// { tasks: [{ id, title, description, area, dueDate, status, assignedBy }] } ve { task }
 export async function getTasks(childId) {
   const data = await authFetch(`/api/children/${childId}/tasks`)
   return data.tasks
 }
 
+// task: { title, description, area, dueDate } (dueDate 'YYYY-MM-DD')
+export async function createTask(childId, task) {
+  const data = await authFetch(`/api/children/${childId}/tasks`, {
+    method: 'POST',
+    body: task,
+  })
+  return data.task
+}
+
+// Çocuk: kendi görevini tamamlandı olarak işaretler (FR-M4-03)
 export async function markTaskDone(childId, taskId) {
   const data = await authFetch(`/api/children/${childId}/tasks/${taskId}/done`, { method: 'PATCH' })
   return data.task

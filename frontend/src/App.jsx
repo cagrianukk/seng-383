@@ -4,6 +4,7 @@ import LoginPage from './pages/LoginPage'
 import WelcomePage from './pages/WelcomePage'
 import LinkedSpecialistsPage from './pages/LinkedSpecialistsPage'
 import ChildListPage from './pages/ChildListPage'
+import TasksPage from './pages/TasksPage'
 import ChildTasksPage from './pages/ChildTasksPage'
 import Layout from './components/Layout'
 import ProtectedRoute from './components/ProtectedRoute'
@@ -65,6 +66,14 @@ export default function App() {
           />
           <Route
             path="tasks"
+            element={
+              <ProtectedRoute user={user} roles={['parent', 'specialist']}>
+                <TasksPage user={user} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="my-tasks"
             element={
               <ProtectedRoute user={user} roles={['child']}>
                 <ChildTasksPage />
