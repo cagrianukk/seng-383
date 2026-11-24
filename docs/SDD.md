@@ -2,7 +2,7 @@
 
 **Team name:** TriCore  
 **Version:** ☒ First version (Week 6) ☐ Final (Week 10)  
-**Last updated:** 2026-10-18
+**Last updated:** 2026-11-24
 
 ---
 
@@ -35,16 +35,30 @@ flowchart LR
 
 ## 2. Module Design
 
-| Module | Main components | Implements requirements |
-|---|---|---|
-| M1 – Login and roles | `authRoutes`, `authService`, `authMiddleware`, `requireRole`; `LoginPage`, `ProtectedRoute` | FR-M1-01 … FR-M1-05 |
-| M2 – Linking specialists | `linkRoutes`, `linkService`, `requireChildAccess` middleware; `LinkedSpecialistsPage`, `ChildListPage` | FR-M2-01 … FR-M2-06 |
-| M3 – Weekly schedule | `eventRoutes`, `eventService`; `WeeklyView`, `EventForm` | FR-M3-01 … FR-M3-04 |
-| M4 – Tasks | `taskRoutes`, `taskService`; `TaskList`, `TaskForm`, `ChildTasksPage` | FR-M4-01 … FR-M4-05 |
-| M5 – Specialist entries | `entryRoutes`, `entryService`; `EntryForm`, `EntryList` | FR-M5-01 … FR-M5-05 |
-| M6 – Documents | `documentRoutes`, `documentService`, upload middleware (multer); `DocumentsPage` | FR-M6-01 … FR-M6-05 |
-| M7 – Weekly statistics | `statsRoutes`, `statsService`; `StatsPanel` | FR-M7-01 … FR-M7-03 |
-| M8 – Role-based AI summary | `summaryRoutes`, `summaryService`, `aiClient` (real + mock), prompt templates for parent and specialist; `AiSummaryCard` | FR-M8-01 … FR-M8-08 |
+| Module | Main components (as implemented) | Implements requirements | Status |
+|---|---|---|---|
+| M1 – Login and roles | `authRoutes`, `authService`, `authMiddleware`, `requireRole`; `LoginPage`, `ProtectedRoute`, `Layout` (menu per role), session expiry in `api.js` | FR-M1-01 … FR-M1-07 | Done (v0.1) |
+| M2 – Linking specialists | `childRoutes`, `linkService`, `requireChildAccess` middleware; `LinkedSpecialistsPage`, `ChildListPage` | FR-M2-01 … FR-M2-07 | Done (v0.1) |
+| M3 – Weekly schedule | `eventRoutes`, `eventService` (shared `weekRange`); `WeeklyView`, `EventForm`, `week.js` | FR-M3-01 … FR-M3-07 | Done (v0.1) |
+| M4 – Tasks | `taskRoutes`, `taskService`; `TasksPage` (assign + assigner's list), `ChildTasksPage` | FR-M4-01 … FR-M4-07 | Done (v0.1) |
+| M5 – Specialist entries | `entryRoutes`, `entryService`; `EntryForm`, `EntryList` | FR-M5-01 … FR-M5-05 | Sprint 3 |
+| M6 – Documents | `documentRoutes`, `documentService`, upload middleware (multer); `DocumentsPage` | FR-M6-01 … FR-M6-06 | Sprint 3 |
+| M7 – Weekly statistics | `statsRoutes`, `statsService` (reuses `weekRange` and `AREAS`); `StatsPanel` | FR-M7-01 … FR-M7-03 | Sprint 3 (in review) |
+| M8 – Role-based AI summary | `summaryRoutes`, `summaryService`, `aiClient` (real + mock), prompt templates for parent and specialist; `AiSummaryCard` | FR-M8-01 … FR-M8-08 | Sprint 3 |
+
+### Frontend pages and access
+
+The menu shows each role only its own pages (FR-M1-03); `ProtectedRoute` sends other roles to the home page. The API enforces the same rules (NFR-02).
+
+| Path | Page | Parent | Specialist | Child |
+|---|---|---|---|---|
+| `/` | Welcome | ✓ | ✓ | ✓ |
+| `/specialists` | Linked specialists | ✓ | | |
+| `/children` | My children | | ✓ | |
+| `/tasks` | Assign tasks, assigner's task list | ✓ | ✓ | |
+| `/my-tasks` | Child's own tasks, mark as done | | | ✓ |
+| `/schedule` | Weekly schedule (read-only for the child) | ✓ | ✓ | ✓ |
+| `/stats` | Weekly statistics | ✓ | ✓ | |
 
 ---
 
@@ -155,7 +169,7 @@ All endpoints except login require a JWT. `:childId` endpoints return 403 for a 
 | GET | `/api/children/:childId/documents` | List documents (not for child) | M6 |
 | POST | `/api/children/:childId/documents` | Upload a PDF or image | M6 |
 | GET | `/api/children/:childId/documents/:documentId/download` | Download a document | M6 |
-| GET | `/api/children/:childId/stats?week=` | Completion rate in total and by area | M7 |
+| GET | `/api/children/:childId/stats?week=` | Completion rate in total and by area: `{ week, total: { assigned, done, rate }, byArea: [{ area, assigned, done, rate }] }`, rate in whole percent; parent and linked specialist only | M7 |
 | POST | `/api/children/:childId/summaries` | Generate the weekly AI summary for the current role | M8 |
 | POST | `/api/summaries/:summaryId/feedback` | Mark a summary as helpful or incorrect | M8 |
 
@@ -239,3 +253,4 @@ sequenceDiagram
 | Date | Change | By |
 |---|---|---|
 | 2026-10-18 | First version | TriCore |
+| 2026-11-24 | Module table updated to the implemented components with status; frontend pages and access table added; stats response documented (TRI-47) | Çağrı Anuk |

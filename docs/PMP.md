@@ -95,14 +95,23 @@ Status on 2026-11-15, the day before the mid-term evaluation (Monday 16 November
 
 ## PMP-4. Progress Review: v0.2
 
-**Jira board screenshot:**  
+> Draft as of 2026-11-24 (start of Sprint 3). Updated, with the board screenshot, when `v0.2` is tagged at the end of Week 10.
+
+**Jira board screenshot:** *(to be added: `docs/img/pmp4-board.png`)*  
 
 | Epic | Planned for this point | Status (Done / In progress / Not started) |
 |---|---|---|
-| | | |
-| | | |
+| M4 – Tasks | Flow 2 end-to-end test (TRI-36) | In progress (in review) |
+| M5 – Specialist entries | Entries API and page (TRI-37, TRI-38) | Not started |
+| M6 – Documents | Documents API and page (TRI-39, TRI-40) | Not started |
+| M7 – Weekly statistics | Stats API and panel (TRI-41, TRI-42) | In progress (in review) |
+| M8 – Role-based AI summary | aiClient with mock mode, summary API, summary card, Flow 3 end-to-end test (TRI-43 … TRI-46) | Not started |
+| PMP-4 | SRS and SDD final (TRI-47), this review and release v0.2 (TRI-48) | In progress |
 
 **Changes to the plan (if any):**
+- Sprint 2 was closed and Sprint 3 started on 2026-11-24, two days late; Sprint 3 still ends on 2026-12-06.
+- The AI summary card (TRI-45) moves from Furkan to Cem, so that M8's backend (Furkan) and frontend (Cem) can be built in parallel. The Flow 3 end-to-end test (TRI-46) is done by Çağrı, who set up the Playwright tests.
+- The Summary API response shape is fixed in TRI-44 up front, so that the card and the Flow 3 test can start before the API is merged.
 
 ---
 
