@@ -118,3 +118,8 @@ export async function createEvent(childId, event) {
   })
   return data.event
 }
+
+// M7 – Haftalık istatistik: { week, total: { assigned, done, rate }, byArea: [...] }
+export async function getStats(childId, week) {
+  return authFetch(`/api/children/${childId}/stats?week=${week}`)
+}

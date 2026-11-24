@@ -71,6 +71,16 @@ describe('Layout – rol bazlı menü (FR-M1-03)', () => {
     }
   })
 
+  test('veli ve uzman "İstatistik" menüsünü görür, çocuk görmez (FR-M7-01)', () => {
+    for (const user of [parent, specialist]) {
+      const { unmount } = renderAt('/', user)
+      expect(screen.getByRole('link', { name: 'İstatistik' })).toHaveAttribute('href', '/stats')
+      unmount()
+    }
+    renderAt('/', child)
+    expect(screen.queryByRole('link', { name: 'İstatistik' })).not.toBeInTheDocument()
+  })
+
   test('Çıkış butonu onLogout çağırır', () => {
     const onLogout = vi.fn()
     renderAt('/', parent, onLogout)
