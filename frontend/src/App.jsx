@@ -7,6 +7,7 @@ import ChildListPage from './pages/ChildListPage'
 import TasksPage from './pages/TasksPage'
 import ChildTasksPage from './pages/ChildTasksPage'
 import WeeklyView from './pages/WeeklyView'
+import StatsPanel from './pages/StatsPanel'
 import Layout from './components/Layout'
 import ProtectedRoute from './components/ProtectedRoute'
 import { login, getMe, TOKEN_KEY, SESSION_EXPIRED_EVENT } from './api'
@@ -97,6 +98,14 @@ export default function App() {
             element={
               <ProtectedRoute user={user} roles={['parent', 'specialist', 'child']}>
                 <WeeklyView user={user} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="stats"
+            element={
+              <ProtectedRoute user={user} roles={['parent', 'specialist']}>
+                <StatsPanel />
               </ProtectedRoute>
             }
           />

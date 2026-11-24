@@ -237,3 +237,29 @@ button.secondary {
 .day p {
   margin: 0;
 }
+
+.stats-total {
+  font-size: 1.125rem;
+}
+
+.rate-row {
+  margin-bottom: 12px;
+}
+
+.rate-head {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.rate-bar {
+  height: 10px;
+  border-radius: 999px;
+  background: #e5e7eb;
+  overflow: hidden;
+}
+
+.rate-fill {
+  height: 100%;
+  background: #2563eb;
+}
