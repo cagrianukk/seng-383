@@ -5,6 +5,7 @@ const authRoutes = require('./routes/authRoutes');
 const childRoutes = require('./routes/childRoutes');
 const taskRoutes = require('./routes/taskRoutes');
 const eventRoutes = require('./routes/eventRoutes');
+const statsRoutes = require('./routes/statsRoutes');
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/children', childRoutes);
 app.use('/api/children', taskRoutes);
 app.use('/api/children', eventRoutes);
+app.use('/api/children', statsRoutes);
 
 app.use((req, res) => res.status(404).json({ error: 'Bulunamadı' }));
 
